@@ -1,0 +1,48 @@
+1.
+
+SELECT `students`.`name` AS `nomi_studenti`, `degrees`.`name` AS `facolta`
+FROM `degrees`
+INNER JOIN `students` ON `degrees`.`id` = `students`.`degree_id`
+WHERE `degrees`.`name` = 'Corso di Laurea in Economia'
+
+2.
+
+SELECT `degrees`.`name` AS `nomi_facolta`, `departments`.`name` AS `dipartimenti`
+FROM `departments`
+INNER JOIN `degrees` ON `departments`.`id` = `degrees`.`department_id`
+WHERE `departments`.`name` = 'Dipartimento di Neuroscienze'
+
+3.
+
+SELECT `teachers`.`name` AS `nome_professore`, `teachers`.`surname` AS `cognome_professore`, `courses`.`name` AS `corso_di_laurea`
+FROM `teachers`
+INNER JOIN `course_teacher` ON `teachers`.`id` = `course_teacher`.`teacher_id`
+INNER JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
+WHERE `teachers`.`name` = 'fulvio'
+AND `teachers`.`surname` = 'amato'
+
+4.
+
+SELECT `students`.`name` AS `nome_studenti`, `students`.`surname` AS `cognome_studenti`, `degrees`.`name` AS `facolta`, 		`departments`.`name` AS `dipartimento`
+FROM `students`
+INNER JOIN `degrees` ON `students`.`degree_id` = `degrees`.`id`
+INNER JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+ORDER BY `cognome_studenti`
+
+5.
+
+SELECT `degrees`.`name` AS `facolta`, `courses`.`name` AS `corsi`, `teachers`.`name` AS `nome_professore`, `teachers`.`surname` AS 		`cognome_professore`
+FROM `degrees`
+INNER JOIN `courses` ON `degrees`.`id` = `courses`.`degree_id`
+INNER JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+INNER JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`
+
+6.
+
+SELECT DISTINCT `teachers`.`name` AS `nome_professore`, `teachers`.`surname` AS `cognome_professore`, `departments`.`name` AS 			`dipartimenti`
+FROM `teachers`
+INNER JOIN `course_teacher` ON `teachers`.`id` = `course_teacher`.`teacher_id`
+INNER JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
+INNER JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id`
+INNER JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+WHERE `departments`.`name` = 'dipartimento di matematica'
